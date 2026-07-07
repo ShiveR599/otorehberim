@@ -11,7 +11,7 @@ export const Route = createFileRoute("/blog")({
       { property: "og:title", content: "Blog | Oto Rehberim" },
       { property: "og:description", content: "Oto bakım rehberi yazıları." },
       { property: "og:url", content: "/blog" },
-      { property: "og:image", content: "/og-image.svg" },
+      { property: "og:image", content: "https://otorehberim.lovable.app/og-image.svg" },
     ],
     links: [{ rel: "canonical", href: "/blog" }],
   }),

@@ -3,7 +3,7 @@ import type {} from "@tanstack/react-start";
 
 const SITE_URL = "https://otorehberim.lovable.app";
 
-export const Route = createFileRoute("/robots[.]txt")({
+export const Route = createFileRoute("/robots.txt")({
   server: {
     handlers: {
       GET: () => {
