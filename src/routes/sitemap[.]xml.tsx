@@ -9,7 +9,7 @@ const staticPaths = [
   "/hakkimizda", "/iletisim", "/gizlilik", "/blog",
 ];
 
-export const Route = createFileRoute("/sitemap[.]xml")({
+export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
       GET: () => {

@@ -54,7 +54,7 @@ function BlogPost() {
   return (
     <PageLayout title={post.title} subtitle={new Date(post.date).toLocaleDateString("tr-TR")}>
       <article className="panel-surface p-6 text-sm leading-relaxed text-muted-foreground space-y-4">
-        {post.body.map((para, i) => (
+        {post.body.map((para: string, i: number) => (
           <p key={i}>{para}</p>
         ))}
       </article>
