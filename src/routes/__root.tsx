@@ -94,17 +94,42 @@ gtag('js', new Date());
 gtag('config', 'G-YDCM4WQ58R');
 `;
 
-const ORG_JSONLD = {
+const SITE_URL = "https://otorehberim.lovable.app";
+const OG_IMAGE = `${SITE_URL}/og-image.svg`;
+
+const WEBAPP_JSONLD = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
   name: "Oto Rehberim",
-  url: "/",
+  url: SITE_URL,
   applicationCategory: "AutomotiveApplication",
   operatingSystem: "Web",
   inLanguage: "tr-TR",
   offers: { "@type": "Offer", price: "0", priceCurrency: "TRY" },
   description:
-    "Araç bakım, lastik ömrü, akü ömrü ve yakıt maliyeti hesaplama için ücretsiz oto rehberi.",
+    "Araç bakım, lastik ömrü, akü ömrü, yakıt maliyeti ve OBD arıza kodu rehberi. Ücretsiz.",
+};
+
+const ORG_JSONLD = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Oto Rehberim",
+  url: SITE_URL,
+  logo: `${SITE_URL}/favicon.svg`,
+  email: "iletisim@otorehberim.net",
+};
+
+const WEBSITE_JSONLD = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Oto Rehberim",
+  url: SITE_URL,
+  inLanguage: "tr-TR",
+  potentialAction: {
+    "@type": "SearchAction",
+    target: `${SITE_URL}/ariza?q={search_term_string}`,
+    "query-input": "required name=search_term_string",
+  },
 };
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
