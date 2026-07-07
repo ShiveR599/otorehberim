@@ -11,13 +11,13 @@ import { AlertTriangle, CalendarDays } from "lucide-react";
 export const Route = createFileRoute("/bakim")({
   head: () => ({
     meta: [
-      { title: "Bakım & Ömür Takibi | Lastik, Akü, Mevsimlik Rehber | Oto Rehberim" },
+      { title: "Bakım & Ömür — Lastik, Akü ve Mevsimlik Rehber" },
       { name: "description", content: "Lastik ömrü, akü ömrü ve kışlık/yazlık lastik değişim zamanını ücretsiz hesaplayın." },
       { property: "og:title", content: "Bakım & Ömür Takibi | Oto Rehberim" },
       { property: "og:description", content: "Lastik, akü ve mevsimlik lastik değişim rehberi." },
-      { property: "og:image", content: "/og-image.svg" },
+      { property: "og:image", content: "https://otorehberim.lovable.app/og-image.svg" },
       { property: "og:url", content: "/bakim" },
-      { name: "twitter:image", content: "/og-image.svg" },
+      { name: "twitter:image", content: "https://otorehberim.lovable.app/og-image.svg" },
     ],
     links: [{ rel: "canonical", href: "/bakim" }],
   }),

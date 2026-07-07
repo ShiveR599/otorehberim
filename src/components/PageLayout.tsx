@@ -2,15 +2,18 @@ import { Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import { AdSlot } from "@/components/AdSlot";
 import { CookieBanner } from "@/components/CookieBanner";
-import { Car, Wrench, Fuel, CircleGauge, Menu } from "lucide-react";
+import { Car, Wrench, Fuel, CircleGauge, Menu, AlertOctagon, FileText, MapPin } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 
 const TABS = [
-  { to: "/", label: "Araç Bilgi Merkezi", icon: Car },
+  { to: "/", label: "Araç Bilgi", icon: Car },
   { to: "/bakim", label: "Bakım & Ömür", icon: Wrench },
   { to: "/yakit", label: "Yakıt & Maliyet", icon: Fuel },
   { to: "/lastik-teknik", label: "Lastik Teknik", icon: CircleGauge },
+  { to: "/ariza", label: "Arıza Rehberi", icon: AlertOctagon },
+  { to: "/resmi-islemler", label: "Resmi İşlemler", icon: FileText },
+  { to: "/plaka", label: "Plaka Sorgulama", icon: MapPin },
 ] as const;
 
 interface Props {
@@ -28,42 +31,44 @@ export function PageLayout({ title, subtitle, children, showInArticleAd }: Props
       {/* Top bar */}
       <header className="sticky top-0 z-40 border-b border-border/70 bg-background/85 backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center gap-3 px-4 py-3">
-          <Link to="/" className="flex items-center gap-2 font-bold tracking-tight">
+          <Link to="/" className="flex shrink-0 items-center gap-2 font-bold tracking-tight">
             <span className="grid h-8 w-8 place-items-center rounded-lg bg-primary/15 text-primary neon-glow">
               <Car className="h-4 w-4" />
             </span>
             <span className="text-base sm:text-lg">Oto Rehberim</span>
           </Link>
-
-          <nav aria-label="Ana sekmeler" className="ml-auto hidden md:flex">
-            <ul className="flex items-center gap-1 rounded-full border border-border bg-panel/60 p-1">
-              {TABS.map((t) => (
-                <li key={t.to}>
-                  <Link
-                    to={t.to}
-                    activeOptions={{ exact: true }}
-                    activeProps={{ className: "bg-primary text-primary-foreground" }}
-                    inactiveProps={{ className: "text-muted-foreground hover:text-foreground" }}
-                    className="flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium transition"
-                  >
-                    <t.icon className="h-4 w-4" /> {t.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
-
           <button
-            className="ml-auto rounded-md border border-border p-2 md:hidden"
+            className="ml-auto rounded-md border border-border p-2 sm:hidden"
             aria-label="Menü"
+            aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
           >
             <Menu className="h-4 w-4" />
           </button>
         </div>
 
+        <nav aria-label="Ana sekmeler" className="border-t border-border/70 bg-panel/40">
+          <div className="mx-auto max-w-7xl overflow-x-auto px-3 py-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            <ul className="flex items-center gap-1">
+              {TABS.map((t) => (
+                <li key={t.to} className="shrink-0">
+                  <Link
+                    to={t.to}
+                    activeOptions={{ exact: true }}
+                    activeProps={{ className: "bg-primary text-primary-foreground shadow-[0_0_18px_-4px_var(--neon)]" }}
+                    inactiveProps={{ className: "text-muted-foreground hover:text-foreground bg-transparent" }}
+                    className="flex items-center gap-1.5 whitespace-nowrap rounded-full border border-border/60 px-3 py-1.5 text-xs font-medium transition sm:text-sm"
+                  >
+                    <t.icon className="h-4 w-4" /> {t.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </nav>
+
         {open && (
-          <nav className="md:hidden border-t border-border/70 bg-panel">
+          <div className="border-t border-border/70 bg-panel sm:hidden">
             <ul className="mx-auto flex max-w-7xl flex-col p-2">
               {TABS.map((t) => (
                 <li key={t.to}>
@@ -79,7 +84,7 @@ export function PageLayout({ title, subtitle, children, showInArticleAd }: Props
                 </li>
               ))}
             </ul>
-          </nav>
+          </div>
         )}
       </header>
 

@@ -12,12 +12,15 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as YakitRouteImport } from './routes/yakit'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
+import { Route as ResmiIslemlerRouteImport } from './routes/resmi-islemler'
+import { Route as PlakaRouteImport } from './routes/plaka'
 import { Route as LastikTeknikRouteImport } from './routes/lastik-teknik'
 import { Route as IletisimRouteImport } from './routes/iletisim'
 import { Route as HakkimizdaRouteImport } from './routes/hakkimizda'
 import { Route as GizlilikRouteImport } from './routes/gizlilik'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as BakimRouteImport } from './routes/bakim'
+import { Route as ArizaRouteImport } from './routes/ariza'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 
@@ -34,6 +37,16 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
 const RobotsDottxtRoute = RobotsDottxtRouteImport.update({
   id: '/robots.txt',
   path: '/robots.txt',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResmiIslemlerRoute = ResmiIslemlerRouteImport.update({
+  id: '/resmi-islemler',
+  path: '/resmi-islemler',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PlakaRoute = PlakaRouteImport.update({
+  id: '/plaka',
+  path: '/plaka',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LastikTeknikRoute = LastikTeknikRouteImport.update({
@@ -66,6 +79,11 @@ const BakimRoute = BakimRouteImport.update({
   path: '/bakim',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ArizaRoute = ArizaRouteImport.update({
+  id: '/ariza',
+  path: '/ariza',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -79,12 +97,15 @@ const BlogSlugRoute = BlogSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/ariza': typeof ArizaRoute
   '/bakim': typeof BakimRoute
   '/blog': typeof BlogRouteWithChildren
   '/gizlilik': typeof GizlilikRoute
   '/hakkimizda': typeof HakkimizdaRoute
   '/iletisim': typeof IletisimRoute
   '/lastik-teknik': typeof LastikTeknikRoute
+  '/plaka': typeof PlakaRoute
+  '/resmi-islemler': typeof ResmiIslemlerRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/yakit': typeof YakitRoute
@@ -92,12 +113,15 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/ariza': typeof ArizaRoute
   '/bakim': typeof BakimRoute
   '/blog': typeof BlogRouteWithChildren
   '/gizlilik': typeof GizlilikRoute
   '/hakkimizda': typeof HakkimizdaRoute
   '/iletisim': typeof IletisimRoute
   '/lastik-teknik': typeof LastikTeknikRoute
+  '/plaka': typeof PlakaRoute
+  '/resmi-islemler': typeof ResmiIslemlerRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/yakit': typeof YakitRoute
@@ -106,12 +130,15 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/ariza': typeof ArizaRoute
   '/bakim': typeof BakimRoute
   '/blog': typeof BlogRouteWithChildren
   '/gizlilik': typeof GizlilikRoute
   '/hakkimizda': typeof HakkimizdaRoute
   '/iletisim': typeof IletisimRoute
   '/lastik-teknik': typeof LastikTeknikRoute
+  '/plaka': typeof PlakaRoute
+  '/resmi-islemler': typeof ResmiIslemlerRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/yakit': typeof YakitRoute
@@ -121,12 +148,15 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/ariza'
     | '/bakim'
     | '/blog'
     | '/gizlilik'
     | '/hakkimizda'
     | '/iletisim'
     | '/lastik-teknik'
+    | '/plaka'
+    | '/resmi-islemler'
     | '/robots.txt'
     | '/sitemap.xml'
     | '/yakit'
@@ -134,12 +164,15 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/ariza'
     | '/bakim'
     | '/blog'
     | '/gizlilik'
     | '/hakkimizda'
     | '/iletisim'
     | '/lastik-teknik'
+    | '/plaka'
+    | '/resmi-islemler'
     | '/robots.txt'
     | '/sitemap.xml'
     | '/yakit'
@@ -147,12 +180,15 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/ariza'
     | '/bakim'
     | '/blog'
     | '/gizlilik'
     | '/hakkimizda'
     | '/iletisim'
     | '/lastik-teknik'
+    | '/plaka'
+    | '/resmi-islemler'
     | '/robots.txt'
     | '/sitemap.xml'
     | '/yakit'
@@ -161,12 +197,15 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ArizaRoute: typeof ArizaRoute
   BakimRoute: typeof BakimRoute
   BlogRoute: typeof BlogRouteWithChildren
   GizlilikRoute: typeof GizlilikRoute
   HakkimizdaRoute: typeof HakkimizdaRoute
   IletisimRoute: typeof IletisimRoute
   LastikTeknikRoute: typeof LastikTeknikRoute
+  PlakaRoute: typeof PlakaRoute
+  ResmiIslemlerRoute: typeof ResmiIslemlerRoute
   RobotsDottxtRoute: typeof RobotsDottxtRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   YakitRoute: typeof YakitRoute
@@ -193,6 +232,20 @@ declare module '@tanstack/react-router' {
       path: '/robots.txt'
       fullPath: '/robots.txt'
       preLoaderRoute: typeof RobotsDottxtRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/resmi-islemler': {
+      id: '/resmi-islemler'
+      path: '/resmi-islemler'
+      fullPath: '/resmi-islemler'
+      preLoaderRoute: typeof ResmiIslemlerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/plaka': {
+      id: '/plaka'
+      path: '/plaka'
+      fullPath: '/plaka'
+      preLoaderRoute: typeof PlakaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/lastik-teknik': {
@@ -237,6 +290,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BakimRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/ariza': {
+      id: '/ariza'
+      path: '/ariza'
+      fullPath: '/ariza'
+      preLoaderRoute: typeof ArizaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -266,12 +326,15 @@ const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ArizaRoute: ArizaRoute,
   BakimRoute: BakimRoute,
   BlogRoute: BlogRouteWithChildren,
   GizlilikRoute: GizlilikRoute,
   HakkimizdaRoute: HakkimizdaRoute,
   IletisimRoute: IletisimRoute,
   LastikTeknikRoute: LastikTeknikRoute,
+  PlakaRoute: PlakaRoute,
+  ResmiIslemlerRoute: ResmiIslemlerRoute,
   RobotsDottxtRoute: RobotsDottxtRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   YakitRoute: YakitRoute,

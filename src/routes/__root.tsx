@@ -94,17 +94,42 @@ gtag('js', new Date());
 gtag('config', 'G-YDCM4WQ58R');
 `;
 
-const ORG_JSONLD = {
+const SITE_URL = "https://otorehberim.lovable.app";
+const OG_IMAGE = `${SITE_URL}/og-image.svg`;
+
+const WEBAPP_JSONLD = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
   name: "Oto Rehberim",
-  url: "/",
+  url: SITE_URL,
   applicationCategory: "AutomotiveApplication",
   operatingSystem: "Web",
   inLanguage: "tr-TR",
   offers: { "@type": "Offer", price: "0", priceCurrency: "TRY" },
   description:
-    "Araç bakım, lastik ömrü, akü ömrü ve yakıt maliyeti hesaplama için ücretsiz oto rehberi.",
+    "Araç bakım, lastik ömrü, akü ömrü, yakıt maliyeti ve OBD arıza kodu rehberi. Ücretsiz.",
+};
+
+const ORG_JSONLD = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Oto Rehberim",
+  url: SITE_URL,
+  logo: `${SITE_URL}/favicon.svg`,
+  email: "iletisim@otorehberim.net",
+};
+
+const WEBSITE_JSONLD = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Oto Rehberim",
+  url: SITE_URL,
+  inLanguage: "tr-TR",
+  potentialAction: {
+    "@type": "SearchAction",
+    target: `${SITE_URL}/ariza?q={search_term_string}`,
+    "query-input": "required name=search_term_string",
+  },
 };
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
@@ -113,31 +138,33 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
       { name: "theme-color", content: "#161a20" },
-      { title: "Oto Rehberim | Araç Bakım, Lastik, Akü ve Yakıt Maliyeti Hesaplama" },
+      { title: "Oto Rehberim | Araç Bakım, Lastik, Akü ve Yakıt Rehberi" },
       {
         name: "description",
         content:
-          "Aracınızın motor yaşı uygunluğunu, lastik ve akü ömrünü, yakıt maliyetini ücretsiz hesaplayın. Kayıt yok, tamamen güvenli ve hızlı oto rehberiniz!",
+          "Motor yaşı, lastik ve akü ömrü, yakıt maliyeti, OBD arıza kodları, trafik cezası puanı ve plaka il kodu — ücretsiz oto rehberi.",
       },
       {
         name: "keywords",
         content:
-          "araç bakım hesaplama, motor yağı değişim zamanı hesaplama, lastik ömrü hesaplama, lastik diş derinliği kontrolü, akü ömrü hesaplama, araç yakıt maliyeti hesaplama, km başı yakıt tüketimi hesaplama, lastik ebadı basınç hesaplama, araç lastik basıncı tablosu, motor yaşına göre bakım rehberi, araç motor uygunluk kontrolü, premium ekonomik yedek parça karşılaştırma, oto lastik akü rehberi ücretsiz",
+          "araç bakım hesaplama, motor yağı değişim zamanı hesaplama, lastik ömrü hesaplama, lastik diş derinliği kontrolü, akü ömrü hesaplama, araç yakıt maliyeti hesaplama, km başı yakıt tüketimi hesaplama, lastik ebadı basınç hesaplama, araç lastik basıncı tablosu, motor yaşına göre bakım rehberi, araç motor uygunluk kontrolü, premium ekonomik yedek parça karşılaştırma, oto lastik akü rehberi ücretsiz, arıza lambası anlamları, OBD arıza kodu sözlüğü, motor arıza ışığı ne anlama gelir, trafik cezası puan hesaplama, ehliyet iptali puan sınırı, hasarsızlık indirimi kademe hesaplama, plaka il kodu sorgulama",
       },
       { name: "author", content: "Oto Rehberim" },
       { name: "robots", content: "index,follow" },
       { property: "og:site_name", content: "Oto Rehberim" },
       { property: "og:type", content: "website" },
       { property: "og:locale", content: "tr_TR" },
-      { property: "og:title", content: "Oto Rehberim | Araç Bakım, Lastik, Akü ve Yakıt Maliyeti Hesaplama" },
+      { property: "og:title", content: "Oto Rehberim | Araç Bakım ve Arıza Rehberi" },
       {
         property: "og:description",
         content:
-          "Aracınızın motor yaşı uygunluğunu, lastik ve akü ömrünü, yakıt maliyetini ücretsiz hesaplayın.",
+          "Motor, lastik, akü, yakıt, OBD kodları, trafik cezası ve plaka rehberi.",
       },
+      { property: "og:image", content: OG_IMAGE },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "Oto Rehberim" },
-      { name: "twitter:description", content: "Araç bakım, lastik, akü ve yakıt hesaplayıcıları." },
+      { name: "twitter:description", content: "Araç bakım, lastik, akü, yakıt ve arıza rehberi." },
+      { name: "twitter:image", content: OG_IMAGE },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
@@ -152,19 +179,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     ],
     scripts: [
       { children: CONSENT_INIT },
-      {
-        src: "https://www.googletagmanager.com/gtag/js?id=G-YDCM4WQ58R",
-        async: true,
-      },
+      { src: "https://www.googletagmanager.com/gtag/js?id=G-YDCM4WQ58R", async: true },
       {
         src: "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8147032819898233",
         async: true,
         crossOrigin: "anonymous",
       },
-      {
-        type: "application/ld+json",
-        children: JSON.stringify(ORG_JSONLD),
-      },
+      { type: "application/ld+json", children: JSON.stringify(WEBAPP_JSONLD) },
+      { type: "application/ld+json", children: JSON.stringify(ORG_JSONLD) },
+      { type: "application/ld+json", children: JSON.stringify(WEBSITE_JSONLD) },
     ],
   }),
   shellComponent: RootShell,

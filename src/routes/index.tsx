@@ -14,13 +14,13 @@ import { Info } from "lucide-react";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Araç Bilgi Merkezi | Motor Yaşı ve Yağ Değişimi | Oto Rehberim" },
+      { title: "Araç Bilgi Merkezi — Motor Yaşı ve Yağ Değişimi" },
       { name: "description", content: "Motor tipine göre bakım rehberi ve motor yağı değişim zamanı hesaplayıcısı. Ücretsiz, kayıt yok." },
       { property: "og:title", content: "Araç Bilgi Merkezi | Oto Rehberim" },
       { property: "og:description", content: "Motor yaşı uygunluğu ve motor yağı değişim hesaplayıcısı." },
-      { property: "og:image", content: "/og-image.svg" },
+      { property: "og:image", content: "https://otorehberim.lovable.app/og-image.svg" },
       { property: "og:url", content: "/" },
-      { name: "twitter:image", content: "/og-image.svg" },
+      { name: "twitter:image", content: "https://otorehberim.lovable.app/og-image.svg" },
     ],
     links: [{ rel: "canonical", href: "/" }],
   }),

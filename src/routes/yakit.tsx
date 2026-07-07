@@ -13,13 +13,13 @@ import { useSelectedVehicle } from "@/lib/vehicle-store";
 export const Route = createFileRoute("/yakit")({
   head: () => ({
     meta: [
-      { title: "Yakıt & Maliyet | Km Başı Yakıt Tüketimi Hesaplama | Oto Rehberim" },
+      { title: "Yakıt & Maliyet — Km Başı Tüketim Hesaplama" },
       { name: "description", content: "Aracınızın km başına yakıt maliyetini ve ortalama tüketimini ücretsiz hesaplayın." },
       { property: "og:title", content: "Yakıt & Maliyet | Oto Rehberim" },
       { property: "og:description", content: "Yakıt tüketimi ve km başı maliyet hesaplayıcı." },
-      { property: "og:image", content: "/og-image.svg" },
+      { property: "og:image", content: "https://otorehberim.lovable.app/og-image.svg" },
       { property: "og:url", content: "/yakit" },
-      { name: "twitter:image", content: "/og-image.svg" },
+      { name: "twitter:image", content: "https://otorehberim.lovable.app/og-image.svg" },
     ],
     links: [{ rel: "canonical", href: "/yakit" }],
   }),

@@ -1,5 +1,5 @@
 import { useMemo, useState, useEffect } from "react";
-import { BRANDS } from "@/lib/vehicle-data";
+import { BRANDS } from "@/data/vehicleData";
 import { useSelectedVehicle } from "@/lib/vehicle-store";
 import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,

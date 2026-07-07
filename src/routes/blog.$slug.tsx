@@ -22,8 +22,8 @@ export const Route = createFileRoute("/blog/$slug")({
         { property: "og:description", content: loaderData.excerpt },
         { property: "og:type", content: "article" },
         { property: "og:url", content: url },
-        { property: "og:image", content: "/og-image.svg" },
-        { name: "twitter:image", content: "/og-image.svg" },
+        { property: "og:image", content: "https://otorehberim.lovable.app/og-image.svg" },
+        { name: "twitter:image", content: "https://otorehberim.lovable.app/og-image.svg" },
       ],
       links: [{ rel: "canonical", href: url }],
       scripts: [{
