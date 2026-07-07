@@ -9,8 +9,26 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as YakitRouteImport } from './routes/yakit'
+import { Route as LastikTeknikRouteImport } from './routes/lastik-teknik'
+import { Route as BakimRouteImport } from './routes/bakim'
 import { Route as IndexRouteImport } from './routes/index'
 
+const YakitRoute = YakitRouteImport.update({
+  id: '/yakit',
+  path: '/yakit',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LastikTeknikRoute = LastikTeknikRouteImport.update({
+  id: '/lastik-teknik',
+  path: '/lastik-teknik',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BakimRoute = BakimRouteImport.update({
+  id: '/bakim',
+  path: '/bakim',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -19,28 +37,61 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/bakim': typeof BakimRoute
+  '/lastik-teknik': typeof LastikTeknikRoute
+  '/yakit': typeof YakitRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/bakim': typeof BakimRoute
+  '/lastik-teknik': typeof LastikTeknikRoute
+  '/yakit': typeof YakitRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/bakim': typeof BakimRoute
+  '/lastik-teknik': typeof LastikTeknikRoute
+  '/yakit': typeof YakitRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/bakim' | '/lastik-teknik' | '/yakit'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/bakim' | '/lastik-teknik' | '/yakit'
+  id: '__root__' | '/' | '/bakim' | '/lastik-teknik' | '/yakit'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BakimRoute: typeof BakimRoute
+  LastikTeknikRoute: typeof LastikTeknikRoute
+  YakitRoute: typeof YakitRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/yakit': {
+      id: '/yakit'
+      path: '/yakit'
+      fullPath: '/yakit'
+      preLoaderRoute: typeof YakitRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lastik-teknik': {
+      id: '/lastik-teknik'
+      path: '/lastik-teknik'
+      fullPath: '/lastik-teknik'
+      preLoaderRoute: typeof LastikTeknikRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/bakim': {
+      id: '/bakim'
+      path: '/bakim'
+      fullPath: '/bakim'
+      preLoaderRoute: typeof BakimRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -53,6 +104,9 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BakimRoute: BakimRoute,
+  LastikTeknikRoute: LastikTeknikRoute,
+  YakitRoute: YakitRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
