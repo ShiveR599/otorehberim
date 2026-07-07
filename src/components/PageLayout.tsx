@@ -2,15 +2,18 @@ import { Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import { AdSlot } from "@/components/AdSlot";
 import { CookieBanner } from "@/components/CookieBanner";
-import { Car, Wrench, Fuel, CircleGauge, Menu } from "lucide-react";
+import { Car, Wrench, Fuel, CircleGauge, Menu, AlertOctagon, FileText, MapPin } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 
 const TABS = [
-  { to: "/", label: "Araç Bilgi Merkezi", icon: Car },
+  { to: "/", label: "Araç Bilgi", icon: Car },
   { to: "/bakim", label: "Bakım & Ömür", icon: Wrench },
   { to: "/yakit", label: "Yakıt & Maliyet", icon: Fuel },
   { to: "/lastik-teknik", label: "Lastik Teknik", icon: CircleGauge },
+  { to: "/ariza", label: "Arıza Rehberi", icon: AlertOctagon },
+  { to: "/resmi-islemler", label: "Resmi İşlemler", icon: FileText },
+  { to: "/plaka", label: "Plaka Sorgulama", icon: MapPin },
 ] as const;
 
 interface Props {
