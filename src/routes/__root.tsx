@@ -6,6 +6,7 @@ import {
   useRouter,
   HeadContent,
   Scripts,
+  ScriptOnce,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 
@@ -16,17 +17,17 @@ function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
-        <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
+        <h1 className="text-7xl font-bold text-primary">404</h1>
+        <h2 className="mt-4 text-xl font-semibold">Sayfa bulunamadı</h2>
         <p className="mt-2 text-sm text-muted-foreground">
-          The page you're looking for doesn't exist or has been moved.
+          Aradığınız sayfa mevcut değil ya da taşınmış olabilir.
         </p>
         <div className="mt-6">
           <Link
             to="/"
             className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
           >
-            Go home
+            Ana sayfaya dön
           </Link>
         </div>
       </div>
@@ -44,27 +45,22 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
-        <h1 className="text-xl font-semibold tracking-tight text-foreground">
-          This page didn't load
-        </h1>
+        <h1 className="text-xl font-semibold tracking-tight">Bir sorun oluştu</h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          Something went wrong on our end. You can try refreshing or head back home.
+          Sayfa yüklenirken beklenmedik bir hata çıktı. Yeniden deneyebilir ya da ana sayfaya dönebilirsiniz.
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
           <button
-            onClick={() => {
-              router.invalidate();
-              reset();
-            }}
+            onClick={() => { router.invalidate(); reset(); }}
             className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
           >
-            Try again
+            Yeniden dene
           </button>
           <a
             href="/"
             className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
           >
-            Go home
+            Ana sayfa
           </a>
         </div>
       </div>
@@ -72,26 +68,103 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   );
 }
 
+const CONSENT_INIT = `
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+window.gtag = gtag;
+gtag('consent', 'default', {
+  'analytics_storage': 'denied',
+  'ad_storage': 'denied',
+  'ad_personalization': 'denied',
+  'ad_user_data': 'denied',
+  'wait_for_update': 500
+});
+try {
+  var s = localStorage.getItem('cookie_consent');
+  if (s === 'granted') {
+    gtag('consent', 'update', {
+      'analytics_storage': 'granted',
+      'ad_storage': 'granted',
+      'ad_personalization': 'granted',
+      'ad_user_data': 'granted'
+    });
+  }
+} catch (e) {}
+gtag('js', new Date());
+gtag('config', 'G-YDCM4WQ58R');
+`;
+
+const ORG_JSONLD = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  name: "Oto Rehberim",
+  url: "/",
+  applicationCategory: "AutomotiveApplication",
+  operatingSystem: "Web",
+  inLanguage: "tr-TR",
+  offers: { "@type": "Offer", price: "0", priceCurrency: "TRY" },
+  description:
+    "Araç bakım, lastik ömrü, akü ömrü ve yakıt maliyeti hesaplama için ücretsiz oto rehberi.",
+};
+
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   head: () => ({
     meta: [
       { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
+      { name: "theme-color", content: "#161a20" },
+      { title: "Oto Rehberim | Araç Bakım, Lastik, Akü ve Yakıt Maliyeti Hesaplama" },
+      {
+        name: "description",
+        content:
+          "Aracınızın motor yaşı uygunluğunu, lastik ve akü ömrünü, yakıt maliyetini ücretsiz hesaplayın. Kayıt yok, tamamen güvenli ve hızlı oto rehberiniz!",
+      },
+      {
+        name: "keywords",
+        content:
+          "araç bakım hesaplama, motor yağı değişim zamanı hesaplama, lastik ömrü hesaplama, lastik diş derinliği kontrolü, akü ömrü hesaplama, araç yakıt maliyeti hesaplama, km başı yakıt tüketimi hesaplama, lastik ebadı basınç hesaplama, araç lastik basıncı tablosu, motor yaşına göre bakım rehberi, araç motor uygunluk kontrolü, premium ekonomik yedek parça karşılaştırma, oto lastik akü rehberi ücretsiz",
+      },
+      { name: "author", content: "Oto Rehberim" },
+      { name: "robots", content: "index,follow" },
+      { property: "og:site_name", content: "Oto Rehberim" },
       { property: "og:type", content: "website" },
+      { property: "og:locale", content: "tr_TR" },
+      { property: "og:title", content: "Oto Rehberim | Araç Bakım, Lastik, Akü ve Yakıt Maliyeti Hesaplama" },
+      {
+        property: "og:description",
+        content:
+          "Aracınızın motor yaşı uygunluğunu, lastik ve akü ömrünü, yakıt maliyetini ücretsiz hesaplayın.",
+      },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "Oto Rehberim" },
+      { name: "twitter:description", content: "Araç bakım, lastik, akü ve yakıt hesaplayıcıları." },
     ],
     links: [
+      { rel: "stylesheet", href: appCss },
+      { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
+      { rel: "apple-touch-icon", href: "/favicon.svg" },
+      { rel: "manifest", href: "/manifest.webmanifest" },
+      { rel: "dns-prefetch", href: "https://cdnjs.cloudflare.com" },
+      { rel: "dns-prefetch", href: "https://fonts.googleapis.com" },
+      { rel: "dns-prefetch", href: "https://www.googletagmanager.com" },
+      { rel: "dns-prefetch", href: "https://pagead2.googlesyndication.com" },
+      { rel: "preconnect", href: "https://www.googletagmanager.com", crossOrigin: "" },
+    ],
+    scripts: [
+      { children: CONSENT_INIT },
       {
-        rel: "stylesheet",
-        href: appCss,
+        src: "https://www.googletagmanager.com/gtag/js?id=G-YDCM4WQ58R",
+        async: true,
       },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      {
+        src: "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8147032819898233",
+        async: true,
+        crossOrigin: "anonymous",
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify(ORG_JSONLD),
+      },
     ],
   }),
   shellComponent: RootShell,
@@ -102,11 +175,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="tr">
       <head>
         <HeadContent />
       </head>
       <body>
+        <ScriptOnce>{`document.documentElement.classList.add('dark');`}</ScriptOnce>
         {children}
         <Scripts />
       </body>
@@ -119,7 +193,6 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
     </QueryClientProvider>
   );

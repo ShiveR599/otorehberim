@@ -9,38 +9,234 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as YakitRouteImport } from './routes/yakit'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
+import { Route as LastikTeknikRouteImport } from './routes/lastik-teknik'
+import { Route as IletisimRouteImport } from './routes/iletisim'
+import { Route as HakkimizdaRouteImport } from './routes/hakkimizda'
+import { Route as GizlilikRouteImport } from './routes/gizlilik'
+import { Route as BlogRouteImport } from './routes/blog'
+import { Route as BakimRouteImport } from './routes/bakim'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 
+const YakitRoute = YakitRouteImport.update({
+  id: '/yakit',
+  path: '/yakit',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RobotsDottxtRoute = RobotsDottxtRouteImport.update({
+  id: '/robots.txt',
+  path: '/robots.txt',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LastikTeknikRoute = LastikTeknikRouteImport.update({
+  id: '/lastik-teknik',
+  path: '/lastik-teknik',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IletisimRoute = IletisimRouteImport.update({
+  id: '/iletisim',
+  path: '/iletisim',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HakkimizdaRoute = HakkimizdaRouteImport.update({
+  id: '/hakkimizda',
+  path: '/hakkimizda',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GizlilikRoute = GizlilikRouteImport.update({
+  id: '/gizlilik',
+  path: '/gizlilik',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogRoute = BlogRouteImport.update({
+  id: '/blog',
+  path: '/blog',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BakimRoute = BakimRouteImport.update({
+  id: '/bakim',
+  path: '/bakim',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogSlugRoute = BlogSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => BlogRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/bakim': typeof BakimRoute
+  '/blog': typeof BlogRouteWithChildren
+  '/gizlilik': typeof GizlilikRoute
+  '/hakkimizda': typeof HakkimizdaRoute
+  '/iletisim': typeof IletisimRoute
+  '/lastik-teknik': typeof LastikTeknikRoute
+  '/robots.txt': typeof RobotsDottxtRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/yakit': typeof YakitRoute
+  '/blog/$slug': typeof BlogSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/bakim': typeof BakimRoute
+  '/blog': typeof BlogRouteWithChildren
+  '/gizlilik': typeof GizlilikRoute
+  '/hakkimizda': typeof HakkimizdaRoute
+  '/iletisim': typeof IletisimRoute
+  '/lastik-teknik': typeof LastikTeknikRoute
+  '/robots.txt': typeof RobotsDottxtRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/yakit': typeof YakitRoute
+  '/blog/$slug': typeof BlogSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/bakim': typeof BakimRoute
+  '/blog': typeof BlogRouteWithChildren
+  '/gizlilik': typeof GizlilikRoute
+  '/hakkimizda': typeof HakkimizdaRoute
+  '/iletisim': typeof IletisimRoute
+  '/lastik-teknik': typeof LastikTeknikRoute
+  '/robots.txt': typeof RobotsDottxtRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/yakit': typeof YakitRoute
+  '/blog/$slug': typeof BlogSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/bakim'
+    | '/blog'
+    | '/gizlilik'
+    | '/hakkimizda'
+    | '/iletisim'
+    | '/lastik-teknik'
+    | '/robots.txt'
+    | '/sitemap.xml'
+    | '/yakit'
+    | '/blog/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/bakim'
+    | '/blog'
+    | '/gizlilik'
+    | '/hakkimizda'
+    | '/iletisim'
+    | '/lastik-teknik'
+    | '/robots.txt'
+    | '/sitemap.xml'
+    | '/yakit'
+    | '/blog/$slug'
+  id:
+    | '__root__'
+    | '/'
+    | '/bakim'
+    | '/blog'
+    | '/gizlilik'
+    | '/hakkimizda'
+    | '/iletisim'
+    | '/lastik-teknik'
+    | '/robots.txt'
+    | '/sitemap.xml'
+    | '/yakit'
+    | '/blog/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BakimRoute: typeof BakimRoute
+  BlogRoute: typeof BlogRouteWithChildren
+  GizlilikRoute: typeof GizlilikRoute
+  HakkimizdaRoute: typeof HakkimizdaRoute
+  IletisimRoute: typeof IletisimRoute
+  LastikTeknikRoute: typeof LastikTeknikRoute
+  RobotsDottxtRoute: typeof RobotsDottxtRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  YakitRoute: typeof YakitRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/yakit': {
+      id: '/yakit'
+      path: '/yakit'
+      fullPath: '/yakit'
+      preLoaderRoute: typeof YakitRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/robots.txt': {
+      id: '/robots.txt'
+      path: '/robots.txt'
+      fullPath: '/robots.txt'
+      preLoaderRoute: typeof RobotsDottxtRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lastik-teknik': {
+      id: '/lastik-teknik'
+      path: '/lastik-teknik'
+      fullPath: '/lastik-teknik'
+      preLoaderRoute: typeof LastikTeknikRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/iletisim': {
+      id: '/iletisim'
+      path: '/iletisim'
+      fullPath: '/iletisim'
+      preLoaderRoute: typeof IletisimRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hakkimizda': {
+      id: '/hakkimizda'
+      path: '/hakkimizda'
+      fullPath: '/hakkimizda'
+      preLoaderRoute: typeof HakkimizdaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gizlilik': {
+      id: '/gizlilik'
+      path: '/gizlilik'
+      fullPath: '/gizlilik'
+      preLoaderRoute: typeof GizlilikRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog': {
+      id: '/blog'
+      path: '/blog'
+      fullPath: '/blog'
+      preLoaderRoute: typeof BlogRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/bakim': {
+      id: '/bakim'
+      path: '/bakim'
+      fullPath: '/bakim'
+      preLoaderRoute: typeof BakimRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,22 +244,38 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/$slug': {
+      id: '/blog/$slug'
+      path: '/$slug'
+      fullPath: '/blog/$slug'
+      preLoaderRoute: typeof BlogSlugRouteImport
+      parentRoute: typeof BlogRoute
+    }
   }
 }
 
+interface BlogRouteChildren {
+  BlogSlugRoute: typeof BlogSlugRoute
+}
+
+const BlogRouteChildren: BlogRouteChildren = {
+  BlogSlugRoute: BlogSlugRoute,
+}
+
+const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BakimRoute: BakimRoute,
+  BlogRoute: BlogRouteWithChildren,
+  GizlilikRoute: GizlilikRoute,
+  HakkimizdaRoute: HakkimizdaRoute,
+  IletisimRoute: IletisimRoute,
+  LastikTeknikRoute: LastikTeknikRoute,
+  RobotsDottxtRoute: RobotsDottxtRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
+  YakitRoute: YakitRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
