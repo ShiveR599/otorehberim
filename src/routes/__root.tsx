@@ -138,7 +138,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
       { name: "theme-color", content: "#161a20" },
-      { title: "Oto Rehberim | Araç Bakım, Lastik, Akü ve Yakıt Rehberi" },
+      { title: "Araç Bilgi Merkezi — Motor Yaşı ve Yağ Değişimi" },
       {
         name: "description",
         content:
@@ -154,7 +154,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:site_name", content: "Oto Rehberim" },
       { property: "og:type", content: "website" },
       { property: "og:locale", content: "tr_TR" },
-      { property: "og:title", content: "Oto Rehberim | Araç Bakım ve Arıza Rehberi" },
+      { property: "og:title", content: "Araç Bilgi Merkezi — Motor Yaşı ve Yağ Değişimi" },
       {
         property: "og:description",
         content:
@@ -162,9 +162,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { property: "og:image", content: OG_IMAGE },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Oto Rehberim" },
-      { name: "twitter:description", content: "Araç bakım, lastik, akü, yakıt ve arıza rehberi." },
+      { name: "twitter:title", content: "Araç Bilgi Merkezi — Motor Yaşı ve Yağ Değişimi" },
+      { name: "twitter:description", content: "Motor tipine göre bakım rehberi ve motor yağı değişim zamanı hesaplayıcısı. Ücretsiz, kayıt yok." },
       { name: "twitter:image", content: OG_IMAGE },
+      { name: "description", content: "Motor tipine göre bakım rehberi ve motor yağı değişim zamanı hesaplayıcısı. Ücretsiz, kayıt yok." },
+      { property: "og:description", content: "Motor tipine göre bakım rehberi ve motor yağı değişim zamanı hesaplayıcısı. Ücretsiz, kayıt yok." },
+      { property: "og:image", content: "https://otorehberim.lovable.app/og-image.svg" },
+      { name: "twitter:image", content: "https://otorehberim.lovable.app/og-image.svg" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
