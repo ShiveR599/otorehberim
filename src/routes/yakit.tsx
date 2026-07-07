@@ -13,7 +13,7 @@ import { useSelectedVehicle } from "@/lib/vehicle-store";
 export const Route = createFileRoute("/yakit")({
   head: () => ({
     meta: [
-      { title: "Yakıt & Maliyet | Km Başı Yakıt Tüketimi Hesaplama | Oto Rehberim" },
+      { title: "Yakıt & Maliyet — Km Başı Tüketim Hesaplama" },
       { name: "description", content: "Aracınızın km başına yakıt maliyetini ve ortalama tüketimini ücretsiz hesaplayın." },
       { property: "og:title", content: "Yakıt & Maliyet | Oto Rehberim" },
       { property: "og:description", content: "Yakıt tüketimi ve km başı maliyet hesaplayıcı." },
