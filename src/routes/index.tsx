@@ -123,6 +123,7 @@ function HomePage() {
   const [lastDate, setLastDate] = useState("");
 
   const recKm = vehicle ? recommendedOilKm(vehicle.fuel, vehicle.aspiration) : 10000;
+  const oilSpec = vehicle ? recommendedOilSpec(vehicle.fuel, vehicle.aspiration) : null;
   const usedKm = Math.max(0, (Number(currentKm) || 0) - (Number(lastKm) || 0));
   const remainingKm = Math.max(0, recKm - usedKm);
   const usedDays = lastDate
