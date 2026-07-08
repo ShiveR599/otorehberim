@@ -65,7 +65,7 @@ interface OilSpec {
 }
 
 function recommendedOilSpec(fuel: string, aspiration: string, year?: number): OilSpec {
-  const modern = (year ?? 0) >= 2018;
+  const modern = (year ?? 2020) >= 2018;
   if (fuel === "Hibrit") {
     return {
       viscosity: "0W-20 (bazı modellerde 0W-16)",
