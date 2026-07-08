@@ -13,7 +13,7 @@ const S = (props: IconProps) => ({
   ...props,
 });
 
-const Icons: Record<string, (p: IconProps) => JSX.Element> = {
+const Icons: Record<string, (p: IconProps) => ReactElement> = {
   "check-engine": (p) => (
     <svg {...S(p)}>
       <path d="M5 10h2V8h3v2h4l2-2h2v3h2v4h-2v3h-2l-2-2h-4v2H7v-2H5z" />
