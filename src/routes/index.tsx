@@ -189,6 +189,23 @@ function HomePage() {
                 premium={["Castrol", "Mobil 1", "Total Quartz"]}
                 economy={["Petrol Ofisi Maximus", "Opet Fullmax"]}
               />
+
+              {oilSpec && (
+                <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                  <div className="rounded-lg border border-primary/30 bg-primary/5 p-3">
+                    <div className="text-[11px] font-semibold uppercase tracking-wide text-primary">Önerilen Viskozite</div>
+                    <div className="mt-1 font-mono text-base font-bold text-foreground">{oilSpec.viscosity}</div>
+                    <p className="mt-1 text-xs text-muted-foreground">{oilSpec.note}</p>
+                  </div>
+                  <div className="rounded-lg border border-border/70 bg-background/60 p-3">
+                    <div className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">Yağ Kutusunda Aranacak Standartlar</div>
+                    <div className="mt-1 font-mono text-sm font-semibold text-foreground">{oilSpec.standards}</div>
+                    <p className="mt-1 text-xs text-muted-foreground">
+                      Bu değerler motor tipine göre <strong className="text-foreground">kategorik</strong> önerilerdir. Kesin viskozite ve onay kodu için mutlaka aracınızın kullanım kılavuzuna bakın.
+                    </p>
+                  </div>
+                </div>
+              )}
             </div>
           )}
 
