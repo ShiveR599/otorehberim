@@ -1,4 +1,4 @@
-import type { SVGProps } from "react";
+import type { ReactElement, SVGProps } from "react";
 
 /** Dashboard-style vector icons. Stroke uses currentColor so severity color applies. */
 type IconProps = SVGProps<SVGSVGElement>;
