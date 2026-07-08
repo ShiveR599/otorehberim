@@ -27,10 +27,17 @@ export const Route = createFileRoute("/ariza")({
   component: ArizaPage,
 });
 
-const SEVERITY_STYLES: Record<Severity, { border: string; bg: string; label: string; badge: string }> = {
-  acil:     { border: "border-red-500/60",    bg: "bg-red-500/5",    label: "🔴 Acil — Hemen Dur",    badge: "bg-red-500/20 text-red-300" },
-  kontrol:  { border: "border-yellow-500/60", bg: "bg-yellow-500/5", label: "🟡 Yakında Kontrol Et", badge: "bg-yellow-500/20 text-yellow-300" },
-  bilgi:    { border: "border-emerald-500/50",bg: "bg-emerald-500/5",label: "🟢 Bilgi Amaçlı",       badge: "bg-emerald-500/20 text-emerald-300" },
+const SEVERITY_STYLES: Record<Severity, { border: string; bg: string; label: string; badge: string; icon: string; ring: string }> = {
+  acil:    { border: "border-red-500/60",     bg: "bg-red-500/5",     label: "🔴 Acil — Hemen Dur",    badge: "bg-red-500/20 text-red-300",       icon: "text-red-400",     ring: "ring-red-500/40" },
+  kontrol: { border: "border-yellow-500/60",  bg: "bg-yellow-500/5",  label: "🟡 Yakında Kontrol Et", badge: "bg-yellow-500/20 text-yellow-300", icon: "text-yellow-300",  ring: "ring-yellow-500/40" },
+  bilgi:   { border: "border-emerald-500/50", bg: "bg-emerald-500/5", label: "🟢 Bilgi Amaçlı",       badge: "bg-emerald-500/20 text-emerald-300", icon: "text-emerald-300", ring: "ring-emerald-500/40" },
+};
+
+const SEVERITY_ORDER: Severity[] = ["acil", "kontrol", "bilgi"];
+const SEVERITY_HEADINGS: Record<Severity, string> = {
+  acil: "🔴 Acil — Hemen Dur",
+  kontrol: "🟡 Yakında Kontrol Et",
+  bilgi: "🟢 Bilgi Amaçlı",
 };
 
 function ArizaPage() {
