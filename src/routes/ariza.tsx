@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { OBD_CODES, DASH_LIGHTS, type Severity } from "@/data/dashData";
 import { Search } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { DashLightIcon } from "@/components/DashLightIcon";
 
 const OG = "https://otorehberim.lovable.app/og-image.svg";
 
