@@ -58,6 +58,64 @@ function recommendedOilKm(fuel: string, aspiration: string) {
   return 12000;
 }
 
+interface OilSpec {
+  viscosity: string;
+  standards: string;
+  note: string;
+}
+
+function recommendedOilSpec(fuel: string, aspiration: string, year?: number): OilSpec {
+  const modern = (year ?? 2020) >= 2018;
+  if (fuel === "Hibrit") {
+    return {
+      viscosity: "0W-20 (bazı modellerde 0W-16)",
+      standards: "API SP · ILSAC GF-6",
+      note: "Hibrit motorlar düşük sürtünmeli ince viskozite ile tasarlanır; kalın yağ kullanmak yakıt tüketimini artırır.",
+    };
+  }
+  if (fuel === "Dizel" && aspiration === "Turbo") {
+    return {
+      viscosity: modern ? "5W-30 (DPF'li araçlarda düşük SAPS)" : "5W-40",
+      standards: "ACEA C2 / C3 · API CK-4 veya üstü",
+      note: "DPF'li dizellerde mutlaka 'low SAPS' (düşük kül) etiketli C2/C3 yağ tercih edin, aksi halde filtre tıkanır.",
+    };
+  }
+  if (fuel === "Benzin" && aspiration === "Turbo") {
+    return {
+      viscosity: modern ? "0W-20 veya 5W-30" : "5W-30 / 5W-40",
+      standards: "API SN / SP · ACEA C3",
+      note: "Turbo benzinlilerde LSPI (ön ateşleme) korumalı, API SP damgalı tam sentetik yağ tercih edin.",
+    };
+  }
+  if (fuel === "Benzin" && aspiration === "Atmosferik") {
+    return {
+      viscosity: modern ? "5W-30" : "10W-40 (yüksek km ise 10W-40/15W-40)",
+      standards: "API SN / SP · ACEA A3/B4",
+      note: "200.000 km üstü atmosferik motorlarda 10W-40 daha iyi film oluşturur; sızıntı varsa 15W-40 düşünülebilir.",
+    };
+  }
+  if (fuel === "LPG") {
+    return {
+      viscosity: "10W-40 (yarı sentetik)",
+      standards: "API SN · ACEA A3/B4 · LPG uyumlu",
+      note: "LPG yakıt yağı daha çok ısıtır; kalın viskozite ve daha kısa değişim aralığı (7.500 km) önerilir.",
+    };
+  }
+  if (fuel === "Elektrik") {
+    return {
+      viscosity: "Motor yağı yok — redüktör yağı 75W-85 civarı",
+      standards: "Üretici özel spesifikasyonu",
+      note: "Elektrikli araçlarda geleneksel yağ değişimi yoktur; sadece redüktör/şanzıman yağı üretici aralığında değişir.",
+    };
+  }
+  return {
+    viscosity: "5W-30 (genel öneri)",
+    standards: "API SN veya üstü",
+    note: "Aracınızın kullanım kılavuzundaki spesifik viskoziteyi mutlaka kontrol edin.",
+  };
+}
+
+
 function HomePage() {
   const { vehicle } = useSelectedVehicle();
   const [lastKm, setLastKm] = useState("");
@@ -65,6 +123,7 @@ function HomePage() {
   const [lastDate, setLastDate] = useState("");
 
   const recKm = vehicle ? recommendedOilKm(vehicle.fuel, vehicle.aspiration) : 10000;
+  const oilSpec = vehicle ? recommendedOilSpec(vehicle.fuel, vehicle.aspiration) : null;
   const usedKm = Math.max(0, (Number(currentKm) || 0) - (Number(lastKm) || 0));
   const remainingKm = Math.max(0, recKm - usedKm);
   const usedDays = lastDate
@@ -130,6 +189,23 @@ function HomePage() {
                 premium={["Castrol", "Mobil 1", "Total Quartz"]}
                 economy={["Petrol Ofisi Maximus", "Opet Fullmax"]}
               />
+
+              {oilSpec && (
+                <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                  <div className="rounded-lg border border-primary/30 bg-primary/5 p-3">
+                    <div className="text-[11px] font-semibold uppercase tracking-wide text-primary">Önerilen Viskozite</div>
+                    <div className="mt-1 font-mono text-base font-bold text-foreground">{oilSpec.viscosity}</div>
+                    <p className="mt-1 text-xs text-muted-foreground">{oilSpec.note}</p>
+                  </div>
+                  <div className="rounded-lg border border-border/70 bg-background/60 p-3">
+                    <div className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">Yağ Kutusunda Aranacak Standartlar</div>
+                    <div className="mt-1 font-mono text-sm font-semibold text-foreground">{oilSpec.standards}</div>
+                    <p className="mt-1 text-xs text-muted-foreground">
+                      Bu değerler motor tipine göre <strong className="text-foreground">kategorik</strong> önerilerdir. Kesin viskozite ve onay kodu için mutlaka aracınızın kullanım kılavuzuna bakın.
+                    </p>
+                  </div>
+                </div>
+              )}
             </div>
           )}
 

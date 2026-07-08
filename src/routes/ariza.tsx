@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { OBD_CODES, DASH_LIGHTS, type Severity } from "@/data/dashData";
 import { Search } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { DashLightIcon } from "@/components/DashLightIcon";
 
 const OG = "https://otorehberim.lovable.app/og-image.svg";
 
@@ -26,10 +27,17 @@ export const Route = createFileRoute("/ariza")({
   component: ArizaPage,
 });
 
-const SEVERITY_STYLES: Record<Severity, { border: string; bg: string; label: string; badge: string }> = {
-  acil:     { border: "border-red-500/60",    bg: "bg-red-500/5",    label: "🔴 Acil — Hemen Dur",    badge: "bg-red-500/20 text-red-300" },
-  kontrol:  { border: "border-yellow-500/60", bg: "bg-yellow-500/5", label: "🟡 Yakında Kontrol Et", badge: "bg-yellow-500/20 text-yellow-300" },
-  bilgi:    { border: "border-emerald-500/50",bg: "bg-emerald-500/5",label: "🟢 Bilgi Amaçlı",       badge: "bg-emerald-500/20 text-emerald-300" },
+const SEVERITY_STYLES: Record<Severity, { border: string; bg: string; label: string; badge: string; icon: string; ring: string }> = {
+  acil:    { border: "border-red-500/60",     bg: "bg-red-500/5",     label: "🔴 Acil — Hemen Dur",    badge: "bg-red-500/20 text-red-300",       icon: "text-red-400",     ring: "ring-red-500/40" },
+  kontrol: { border: "border-yellow-500/60",  bg: "bg-yellow-500/5",  label: "🟡 Yakında Kontrol Et", badge: "bg-yellow-500/20 text-yellow-300", icon: "text-yellow-300",  ring: "ring-yellow-500/40" },
+  bilgi:   { border: "border-emerald-500/50", bg: "bg-emerald-500/5", label: "🟢 Bilgi Amaçlı",       badge: "bg-emerald-500/20 text-emerald-300", icon: "text-emerald-300", ring: "ring-emerald-500/40" },
+};
+
+const SEVERITY_ORDER: Severity[] = ["acil", "kontrol", "bilgi"];
+const SEVERITY_HEADINGS: Record<Severity, string> = {
+  acil: "🔴 Acil — Hemen Dur",
+  kontrol: "🟡 Yakında Kontrol Et",
+  bilgi: "🟢 Bilgi Amaçlı",
 };
 
 function ArizaPage() {
@@ -76,27 +84,52 @@ function ArizaPage() {
         </div>
 
         <section>
-          <h2 className="mb-3 text-lg font-semibold">Gösterge Işıkları ({lights.length})</h2>
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {lights.map((l) => {
-              const s = SEVERITY_STYLES[l.severity];
-              return (
-                <article key={l.key} className={cn("rounded-xl border p-4", s.border, s.bg)}>
-                  <div className="flex items-center gap-2">
-                    <span className="text-2xl leading-none" aria-hidden>{l.icon}</span>
-                    <h3 className="text-sm font-semibold">{l.name}</h3>
-                  </div>
-                  <p className="mt-2 text-xs text-muted-foreground">{l.meaning}</p>
-                  <p className="mt-2 text-xs"><strong className="text-foreground">Ne yapmalı: </strong>{l.action}</p>
-                  <span className={cn("mt-3 inline-block rounded-full px-2 py-0.5 text-[10px] font-semibold", s.badge)}>{s.label}</span>
-                </article>
-              );
-            })}
-            {lights.length === 0 && (
-              <p className="text-sm text-muted-foreground">Bu aramayla eşleşen gösterge ışığı bulunamadı.</p>
-            )}
+          <div className="mb-3 flex items-baseline justify-between">
+            <h2 className="text-lg font-semibold">Gösterge Işıkları ({lights.length})</h2>
+            <p className="hidden text-xs text-muted-foreground sm:block">Detay için ışığın üzerine gelin veya dokunun.</p>
           </div>
+
+          {lights.length === 0 && (
+            <p className="text-sm text-muted-foreground">Bu aramayla eşleşen gösterge ışığı bulunamadı.</p>
+          )}
+
+          {SEVERITY_ORDER.map((sev) => {
+            const group = lights.filter((l) => l.severity === sev);
+            if (group.length === 0) return null;
+            const s = SEVERITY_STYLES[sev];
+            return (
+              <div key={sev} className={cn("mb-5 rounded-2xl border p-4", s.border, s.bg)}>
+                <div className="mb-3 flex items-center gap-2">
+                  <span className={cn("inline-block rounded-full px-2.5 py-1 text-xs font-bold", s.badge)}>{SEVERITY_HEADINGS[sev]}</span>
+                  <span className="text-xs text-muted-foreground">({group.length})</span>
+                </div>
+                <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+                  {group.map((l) => (
+                    <details
+                      key={l.key}
+                      className={cn(
+                        "group rounded-xl border border-black/60 bg-neutral-950 p-3 shadow-inner transition hover:ring-2",
+                        s.ring,
+                      )}
+                    >
+                      <summary className="flex cursor-pointer list-none flex-col items-center gap-2 text-center [&::-webkit-details-marker]:hidden">
+                        <div className={cn("grid h-14 w-14 place-items-center rounded-full bg-black/70 ring-1 ring-white/10", s.icon)}>
+                          <DashLightIcon name={l.key} />
+                        </div>
+                        <span className="text-[11px] font-medium leading-tight text-foreground/90">{l.name}</span>
+                      </summary>
+                      <div className="mt-3 space-y-1 border-t border-white/5 pt-2 text-left text-[11px] text-muted-foreground">
+                        <p>{l.meaning}</p>
+                        <p><strong className="text-foreground">Ne yapmalı: </strong>{l.action}</p>
+                      </div>
+                    </details>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
         </section>
+
 
         <section>
           <h2 className="mb-3 text-lg font-semibold">OBD-II Arıza Kodları {query && `(${codes.length})`}</h2>
