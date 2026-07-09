@@ -91,7 +91,7 @@ try {
   }
 } catch (e) {}
 gtag('js', new Date());
-gtag('config', 'G-6JP07BWM1N');
+gtag('config', 'G-KQQ9FK14G4');
 `;
 
 const SITE_URL = "https://otorehberim.lovable.app";
@@ -183,7 +183,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     ],
     scripts: [
       { children: CONSENT_INIT },
-      { src: "https://www.googletagmanager.com/gtag/js?id=G-6JP07BWM1N", async: true },
+      { src: "https://www.googletagmanager.com/gtag/js?id=G-KQQ9FK14G4", async: true },
       {
         src: "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8147032819898233",
         async: true,
